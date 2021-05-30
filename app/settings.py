@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # from ...backend import Auth
 
@@ -22,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-tyv!0qxd($q(#4t-c*zrvfg3us9tz(a$osyqac@0t6em_lk3=z'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -81,14 +82,14 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default':{
         'ENGINE':'django.db.backends.mysql',
-        'NAME':'mpum',
-        'USER':'usersm',
-        'PASSWORD':'usersm@1234',
-        'HOST':'13.233.75.98',
-        'PORT':'3306',
+        'NAME':config('NAME'),
+        'USER':config('USER'),
+        'PASSWORD':config('PASSWORD'),
+        'HOST':config('HOST'),
+        'PORT':config('PORT'), 
       
     }
-}
+} 
  
 AUTH_USER_MODEL = 'Auth.User'
 
