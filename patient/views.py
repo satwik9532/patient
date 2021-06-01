@@ -48,4 +48,29 @@ def get_patient(request):
     return Response(serializer.data,status=status.HTTP_200_OK)
 
     
+@csrf_exempt
+@api_view(['GET','POST'])
 
+def search(request):
+    try:
+        query = pp_patient_master.objects.filter(first_name__icontains = request.data['query'])
+        if query.count()>0:
+            serializer = pp_patient_master_masterSerializer(query,many = True)
+            print(serializer.data)
+            return Response(serializer.data,status = status.HTTP_200_OK) 
+        return Response(status=status.HTTP_404_NOT_FOUND)   
+
+    except:
+        return Response(status = status.HTTP_400_BAD_REQUEST)     
+ 
+
+
+ 
+from django.http import JsonResponse
+@csrf_exempt
+def error_500(request):
+    return JsonResponse({"message": "internal server error"}, status=500)
+
+@csrf_exempt    
+def error_404(request, exception):
+    return JsonResponse({"message": "invalide API"}, status=404)

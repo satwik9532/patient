@@ -42,6 +42,12 @@ class pp_patient_master(models.Model):
         db_table='pp_patient_master'
 
 
-
+class pp_otp(models.Model):
+    email     = models.EmailField()
+    otp       = models.IntegerField()  
+    created_at = models.TimeField( auto_now_add=True)       
+    class Meta:
+        db_table = 'pp_otp' 
+        
 
 

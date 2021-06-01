@@ -16,9 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from patient import views
+from django.conf.urls import  handler500,handler404
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/add-patient/', views.patient_reg),
     path('api/get-patient/', views.get_patient),
+    path('api/search-patient/', views.search),
 ]
+handler500 = 'patient.views.error_500'
+handler404 = 'patient.views.error_404'
