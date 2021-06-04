@@ -25,7 +25,7 @@ def patient_reg(request):
     serializer = pp_patient_master_masterSerializer(data = data)
     if serializer.is_valid():
         serializer.save()
-        return Response({'message':'patient added'},status=status.HTTP_201_CREATED)
+        return Response({'message':'patient added','role':'patient'},status=status.HTTP_201_CREATED)
     return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)   
 
 
