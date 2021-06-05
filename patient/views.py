@@ -1,15 +1,25 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view , schema
 from patient.models import pp_patient_master
 from patient.serializer import pp_patient_master_masterSerializer
 from rest_framework.response import Response
 from rest_framework import exceptions
 from rest_framework import status
 import jwt , datetime
-@csrf_exempt
-@api_view(['POST'])
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 
+
+
+
+
+token_param_config = openapi.Parameter('name',in_ = openapi.IN_QUERY,description = 'Description',type = openapi.TYPE_STRING)
+user_response = openapi.Response('response description', {'message':'created'})
+@csrf_exempt
+@swagger_auto_schema(manual_parameters = [token_param_config],methods=['post'],request_body=pp_patient_master_masterSerializer)
+@api_view(['POST'])
 def patient_reg(request):
     if not request.COOKIES.get('jwt'):
         raise exceptions.AuthenticationFailed('unauthenticated')
